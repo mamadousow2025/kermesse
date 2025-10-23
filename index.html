@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kermesse ASC BADEMA - Sénégal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #009688;
+            --secondary: #FF9800;
+            --light: #f5f5f5;
+            --dark: #333;
+            --success: #4CAF50;
+            --danger: #f44336;
+            --warning: #FFC107;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary), #004d40);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), #00796B);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            color: var(--primary);
+            font-size: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .screen {
+            display: none;
+            padding: 30px;
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        .welcome-screen {
+            text-align: center;
+        }
+        
+        .welcome-screen h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .welcome-screen p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.2);
+        }
+        
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+        
+        .info-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .timer {
+            color: var(--danger);
+            font-size: 1.3rem;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .question-container {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question-category {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        @media (min-width: 600px) {
+            .options-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .option {
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .option:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option.selected {
+            border-color: var(--primary);
+            background-color: rgba(0, 150, 136, 0.1);
+        }
+        
+        .option.correct {
+            border-color: var(--success);
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .option.incorrect {
+            border-color: var(--danger);
+            background-color: rgba(244, 67, 54, 0.1);
+        }
+        
+        .option-letter {
+            width: 30px;
+            height: 30px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .selected .option-letter {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .correct .option-letter {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .incorrect .option-letter {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .option-text {
+            flex-grow: 1;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .results-screen {
+            text-align: center;
+        }
+        
+        .results-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 3rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .results-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .player-name {
+            color: var(--secondary);
+            text-transform: uppercase;
+        }
+        
+        .score {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 20px 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .score-details {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+        }
+        
+        .score-item {
+            padding: 15px;
+            border-radius: 10px;
+            width: 45%;
+        }
+        
+        .correct-answers {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+        }
+        
+        .incorrect-answers {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+        }
+        
+        .score-label {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .score-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .message {
+            font-size: 1.3rem;
+            margin: 25px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+            border-left: 5px solid var(--success);
+        }
+        
+        .failure {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+            border-left: 5px solid var(--danger);
+        }
+        
+        .actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(0, 150, 136, 0.1);
+        }
+        
+        .time-up-message {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(244, 67, 54, 0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: var(--danger);
+            font-weight: 600;
+            border-left: 5px solid var(--danger);
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-users"></i>
+            </div>
+            <h1>Kermesse ASC BADEMA</h1>
+            <p class="subtitle">Testez vos connaissances sur le Sénégal</p>
+        </header>
+        
+        <!-- Écran d'accueil -->
+        <div class="screen welcome-screen active" id="welcome-screen">
+            <h2>Bienvenue à la Kermesse Virtuelle</h2>
+            <p>Testez vos connaissances sur le Sénégal avec 30 questions variées : actualité, culture, sport, religion et plus encore.</p>
+            <p>Vous avez <strong>3 minutes</strong> pour répondre à chaque question. À la fin, découvrez votre score et partagez vos résultats !</p>
+            
+            <div class="form-group">
+                <label for="player-name"><i class="fas fa-user"></i> Votre nom</label>
+                <input type="text" id="player-name" placeholder="Entrez votre nom">
+            </div>
+            
+            <button class="btn btn-block" id="start-btn">
+                <i class="fas fa-play-circle"></i> Commencer le jeu
+            </button>
+        </div>
+        
+        <!-- Écran de jeu -->
+        <div class="screen" id="game-screen">
+            <div class="game-info">
+                <div class="info-item">
+                    <i class="fas fa-user"></i>
+                    <span id="player-display">Joueur</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span id="question-counter">Question 1/30</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span class="timer" id="timer">03:00</span>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-text">
+                    <span>Progression</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+            </div>
+            
+            <div class="time-up-message hidden" id="time-up-message">
+                <i class="fas fa-exclamation-triangle"></i> Temps écoulé ! Passage à la question suivante.
+            </div>
+            
+            <div class="question-container">
+                <div class="question-category" id="question-category">Culture Générale</div>
+                <div class="question-text" id="question-text">Quelle est la capitale du Sénégal ?</div>
+                
+                <div class="options-container" id="options-container">
+                    <!-- Les options seront générées dynamiquement -->
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button class="btn btn-outline" id="prev-btn" disabled>
+                    <i class="fas fa-arrow-left"></i> Précédent
+                </button>
+                <button class="btn" id="next-btn">
+                    Suivant <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Écran des résultats -->
+        <div class="screen results-screen" id="results-screen">
+            <div class="results-icon" id="results-icon">
+                <i class="fas fa-trophy"></i>
+            </div>
+            
+            <h2 class="results-title">Résultats</h2>
+            
+            <div class="score" id="final-score">0/30</div>
+            
+            <div class="score-details">
+                <div class="score-item correct-answers">
+                    <div class="score-label">Bonnes réponses</div>
+                    <div class="score-value" id="correct-count">0</div>
+                </div>
+                <div class="score-item incorrect-answers">
+                    <div class="score-label">Mauvaises réponses</div>
+                    <div class="score-value" id="incorrect-count">0</div>
+                </div>
+            </div>
+            
+            <div class="message" id="result-message">
+                <!-- Le message sera généré dynamiquement -->
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-outline" id="restart-btn">
+                    <i class="fas fa-redo"></i> Recommencer
+                </button>
+                <button class="btn" id="share-btn">
+                    <i class="fas fa-share-alt"></i> Partager
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Questions du jeu (30 questions sur divers thèmes sénégalais)
+        const questions = [
+            {
+                category: "Géographie",
+                question: "Quelle est la capitale du Sénégal ?",
+                options: ["Dakar", "Thiès", "Saint-Louis", "Ziguinchor"],
+                correct: 0
+            },
+            {
+                category: "Histoire",
+                question: "En quelle année le Sénégal a-t-il obtenu son indépendance ?",
+                options: ["1958", "1960", "1962", "1964"],
+                correct: 1
+            },
+            {
+                category: "Culture",
+                question: "Quel est l'instrument de musique traditionnel le plus connu au Sénégal ?",
+                options: ["Kora", "Balafon", "Tama", "Tablâ"],
+                correct: 2
+            },
+            {
+                category: "Sport",
+                question: "Quel sport est le plus populaire au Sénégal ?",
+                options: ["Basketball", "Football", "Lutte", "Athlétisme"],
+                correct: 1
+            },
+            {
+                category: "Cuisine",
+                question: "Quel est le plat national du Sénégal ?",
+                options: ["Mafé", "Thiébou dieune", "Yassa", "Soupou kandja"],
+                correct: 1
+            },
+            {
+                category: "Politique",
+                question: "Qui est le premier président du Sénégal ?",
+                options: ["Abdou Diouf", "Léopold Sédar Senghor", "Abdoulaye Wade", "Macky Sall"],
+                correct: 1
+            },
+            {
+                category: "Religion",
+                question: "Quelle est la religion majoritaire au Sénégal ?",
+                options: ["Christianisme", "Islam", "Animisme", "Hindouisme"],
+                correct: 1
+            },
+            {
+                category: "Économie",
+                question: "Quelle est la principale culture d'exportation du Sénégal ?",
+                options: ["Coton", "Arachide", "Riz", "Millet"],
+                correct: 1
+            },
+            {
+                category: "Géographie",
+                question: "Quel fleuve traverse le Sénégal ?",
+                options: ["Le Niger", "Le Congo", "Le Sénégal", "Le Nil"],
+                correct: 2
+            },
+            {
+                category: "Culture",
+                question: "Quel célèbre festival de musique se tient chaque année à Saint-Louis ?",
+                options: ["Festival du Sahel", "Jazz à Saint-Louis", "Festival des Arts nègres", "Festival des Rhythmes"],
+                correct: 0
+            },
+            {
+                category: "Sport",
+                question: "En quelle année l'équipe de football du Sénégal a-t-elle atteint les quarts de finale de la Coupe du Monde ?",
+                options: ["1998", "2002", "2006", "2010"],
+                correct: 1
+            },
+            {
+                category: "Histoire",
+                question: "Quel était le nom de l'empire qui contrôlait une partie du Sénégal au 13ème siècle ?",
+                options: ["Empire du Ghana", "Empire du Mali", "Empire Songhaï", "Empire Wolof"],
+                correct: 1
+            },
+            {
+                category: "Littérature",
+                question: "Quel écrivain sénégalais a remporté le prix Goncourt en 2021 ?",
+                options: ["Mohamed Mbougar Sarr", "Boubacar Boris Diop", "Fatou Diome", "Aminata Sow Fall"],
+                correct: 0
+            },
+            {
+                category: "Art",
+                question: "Quelle forme d'art sénégalais est reconnue mondialement pour ses couleurs vives ?",
+                options: ["Sculpture sur bois", "Peinture sous verre", "Poterie", "Tissage"],
+                correct: 1
+            },
+            {
+                category: "Langue",
+                question: "Quelle est la langue officielle du Sénégal ?",
+                options: ["Wolof", "Français", "Sérère", "Pulaar"],
+                correct: 1
+            },
+            {
+                category: "Musique",
+                question: "Quel célèbre musicien sénégalais est surnommé 'le roi du mbalax' ?",
+                options: ["Ismaël Lô", "Youssou N'Dour", "Baaba Maal", "Orchestra Baobab"],
+                correct: 1
+            },
+            {
+                category: "Géographie",
+                question: "Quelle île au large de Dakar est un site historique important de la traite des esclaves ?",
+                options: ["Île de Ngor", "Île de Gorée", "Île de Madeleine", "Île de Fadiouth"],
+                correct: 1
+            },
+            {
+                category: "Éducation",
+                question: "Quelle est la plus grande université du Sénégal ?",
+                options: ["Université Cheikh Anta Diop", "Université Gaston Berger", "Université Alioune Diop", "Université Amadou Mahtar Mbow"],
+                correct: 0
+            },
+            {
+                category: "Religion",
+                question: "Quelle confrérie musulmane est la plus importante au Sénégal ?",
+                options: ["Tidjaniyya", "Mouridiyya", "Qadiriyya", "Layène"],
+                correct: 1
+            },
+            {
+                category: "Faune",
+                question: "Quel animal est le symbole national du Sénégal ?",
+                options: ["Lion", "Éléphant", "Baobab", "Héron"],
+                correct: 0
+            },
+            {
+                category: "Cinéma",
+                question: "Quel réalisateur sénégalais est considéré comme le père du cinéma africain ?",
+                options: ["Moussa Sène Absa", "Ousmane Sembène", "Djibril Diop Mambéty", "Alain Gomis"],
+                correct: 1
+            },
+            {
+                category: "Sport",
+                question: "Quel lutteur sénégalais est considéré comme un héros national ?",
+                options: ["Mohamed Ndao", "Yakhya Diop", "Balla Gaye 2", "Tyson"],
+                correct: 3
+            },
+            {
+                category: "Économie",
+                question: "Quelle ressource naturelle a été découverte récemment au large des côtes sénégalaises ?",
+                options: ["Diamants", "Pétrole et gaz", "Uranium", "Cuivre"],
+                correct: 1
+            },
+            {
+                category: "Politique",
+                question: "Quelle est la devise de la République du Sénégal ?",
+                options: ["Un peuple, un but, une foi", "Liberté, Égalité, Fraternité", "Travail, Justice, Solidarité", "Unité, Travail, Progrès"],
+                correct: 0
+            },
+            {
+                category: "Culture",
+                question: "Quel événement culturel majeur a lieu tous les deux ans à Dakar ?",
+                options: ["FESMAN", "Biennale de l'art africain contemporain", "Festival Mondial des Arts Nègres", "Dak'Art"],
+                correct: 3
+            },
+            {
+                category: "Histoire",
+                question: "Quelle reine du Cayor a résisté à la colonisation française au 19ème siècle ?",
+                options: ["Ndaté Yalla", "Aline Sitoe Diatta", "Mame Farma Thiam", "Awa Keita"],
+                correct: 0
+            },
+            {
+                category: "Gastronomie",
+                question: "Quelle boisson traditionnelle sénégalaise est faite à partir du fruit du baobab ?",
+                options: ["Bissap", "Bouye", "Gingembre", "Dabileni"],
+                correct: 1
+            },
+            {
+                category: "Environnement",
+                question: "Quel parc national est célèbre pour ses oiseaux migrateurs ?",
+                options: ["Parc national du Niokolo-Koba", "Parc national de la Langue de Barbarie", "Parc national des oiseaux du Djoudj", "Parc national du delta du Saloum"],
+                correct: 2
+            },
+            {
+                category: "Mathématiques",
+                question: "Si un terrain rectangulaire fait 25m de long et 15m de large, quelle est sa superficie ?",
+                options: ["300 m²", "350 m²", "375 m²", "400 m²"],
+                correct: 2
+            },
+            {
+                category: "Conjugaison",
+                question: "Conjuguez le verbe 'aller' à la première personne du pluriel au présent :",
+                options: ["Nous allons", "Nous allons", "Nous allons", "Nous allons"],
+                correct: 0
+            }
+        ];
+
+        // Variables globales
+        let currentQuestion = 0;
+        let score = 0;
+        let playerName = "";
+        let userAnswers = Array(questions.length).fill(null);
+        let timer;
+        let timeLeft = 180; // 3 minutes en secondes
+
+        // Éléments DOM
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const playerNameInput = document.getElementById('player-name');
+        const startBtn = document.getElementById('start-btn');
+        const playerDisplay = document.getElementById('player-display');
+        const questionCounter = document.getElementById('question-counter');
+        const timerDisplay = document.getElementById('timer');
+        const progressBar = document.getElementById('progress');
+        const progressPercent = document.getElementById('progress-percent');
+        const questionCategory = document.getElementById('question-category');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const timeUpMessage = document.getElementById('time-up-message');
+        const finalScore = document.getElementById('final-score');
+        const correctCount = document.getElementById('correct-count');
+        const incorrectCount = document.getElementById('incorrect-count');
+        const resultMessage = document.getElementById('result-message');
+        const resultsIcon = document.getElementById('results-icon');
+        const restartBtn = document.getElementById('restart-btn');
+        const shareBtn = document.getElementById('share-btn');
+
+        // Initialisation du jeu
+        function initGame() {
+            playerName = playerNameInput.value.trim() || "Joueur";
+            playerDisplay.textContent = playerName;
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = Array(questions.length).fill(null);
+            
+            showScreen(gameScreen);
+            loadQuestion();
+            startTimer();
+            updateProgress();
+        }
+
+        // Afficher un écran spécifique
+        function showScreen(screen) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            screen.classList.add('active');
+        }
+
+        // Charger la question actuelle
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            
+            // Mettre à jour les informations de la question
+            questionCategory.textContent = question.category;
+            questionText.textContent = question.question;
+            questionCounter.textContent = `Question ${currentQuestion + 1}/${questions.length}`;
+            
+            // Générer les options
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[currentQuestion] === index) {
+                    optionElement.classList.add('selected');
+                }
+                
+                optionElement.innerHTML = `
+                    <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Mettre à jour les boutons de navigation
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.innerHTML = 'Terminer <i class="fas fa-flag-checkered"></i>';
+            } else {
+                nextBtn.innerHTML = 'Suivant <i class="fas fa-arrow-right"></i>';
+            }
+            
+            // Réinitialiser le timer
+            resetTimer();
+        }
+
+        // Sélectionner une option
+        function selectOption(optionIndex) {
+            // Désélectionner toutes les options
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Sélectionner l'option cliquée
+            document.querySelectorAll('.option')[optionIndex].classList.add('selected');
+            
+            // Enregistrer la réponse de l'utilisateur
+            userAnswers[currentQuestion] = optionIndex;
+        }
+
+        // Passer à la question suivante
+        function nextQuestion() {
+            // Vérifier si une réponse a été donnée
+            if (userAnswers[currentQuestion] === null) {
+                alert('Veuillez sélectionner une réponse avant de continuer.');
+                return;
+            }
+            
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                finishGame();
+            }
+        }
+
+        // Revenir à la question précédente
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        // Terminer le jeu et afficher les résultats
+        function finishGame() {
+            clearInterval(timer);
+            
+            // Calculer le score
+            score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    score++;
+                }
+            });
+            
+            // Afficher les résultats
+            finalScore.textContent = `${score}/${questions.length}`;
+            correctCount.textContent = score;
+            incorrectCount.textContent = questions.length - score;
+            
+            // Déterminer le message et l'icône en fonction du score
+            const percentage = (score / questions.length) * 100;
+            let message, icon;
+            
+            if (percentage >= 80) {
+                message = `Félicitations <span class="player-name">${playerName}</span> ! Vous avez excellé ! 🎉`;
+                icon = '<i class="fas fa-trophy"></i>';
+                resultMessage.className = 'message success';
+            } else if (percentage >= 60) {
+                message = `Bravo <span class="player-name">${playerName}</span> ! Bon score ! 👍`;
+                icon = '<i class="fas fa-medal"></i>';
+                resultMessage.className = 'message success';
+            } else if (percentage >= 40) {
+                message = `Pas mal <span class="player-name">${playerName}</span> ! Vous pouvez faire mieux ! 💪`;
+                icon = '<i class="fas fa-star"></i>';
+                resultMessage.className = 'message';
+            } else {
+                message = `Dommage <span class="player-name">${playerName}</span> ! Continuez à apprendre sur le Sénégal ! 📚`;
+                icon = '<i class="fas fa-redo"></i>';
+                resultMessage.className = 'message failure';
+            }
+            
+            resultMessage.innerHTML = message;
+            resultsIcon.innerHTML = icon;
+            
+            showScreen(resultsScreen);
+        }
+
+        // Mettre à jour la barre de progression
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressPercent.textContent = `${Math.round(progress)}%`;
+        }
+
+        // Gérer le timer
+        function startTimer() {
+            resetTimer();
+            timer = setInterval(updateTimer, 1000);
+        }
+
+        function resetTimer() {
+            timeLeft = 180; // 3 minutes
+            updateTimerDisplay();
+            timeUpMessage.classList.add('hidden');
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            updateTimerDisplay();
+            
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                timeUpMessage.classList.remove('hidden');
+                
+                // Si aucune réponse n'a été sélectionnée, enregistrer comme non répondue
+                if (userAnswers[currentQuestion] === null) {
+                    userAnswers[currentQuestion] = -1; // -1 signifie "temps écoulé"
+                }
+                
+                // Passer automatiquement à la question suivante après 3 secondes
+                setTimeout(() => {
+                    if (currentQuestion < questions.length - 1) {
+                        currentQuestion++;
+                        loadQuestion();
+                        startTimer();
+                    } else {
+                        finishGame();
+                    }
+                }, 3000);
+            }
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Changer la couleur quand le temps est presque écoulé
+            if (timeLeft <= 30) {
+                timerDisplay.style.color = 'var(--danger)';
+            } else {
+                timerDisplay.style.color = 'var(--dark)';
+            }
+        }
+
+        // Recommencer le jeu
+        function restartGame() {
+            showScreen(welcomeScreen);
+            playerNameInput.value = playerName;
+        }
+
+        // Partager les résultats
+        function shareResults() {
+            const shareText = `J'ai obtenu ${score}/${questions.length} au quiz de la Kermesse ASC BADEMA !`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Résultats Kermesse ASC BADEMA',
+                    text: shareText,
+                    url: window.location.href
+                })
+                .catch(err => console.log('Erreur de partage:', err));
+            } else {
+                // Fallback pour les navigateurs qui ne supportent pas l'API Web Share
+                navigator.clipboard.writeText(shareText)
+                    .then(() => alert('Résultats copiés dans le presse-papier !'))
+                    .catch(err => {
+                        console.error('Erreur de copie:', err);
+                        alert(shareText);
+                    });
+            }
+        }
+
+        // Événements
+        startBtn.addEventListener('click', initGame);
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartGame);
+        shareBtn.addEventListener('click', shareResults);
+
+        // Permettre de démarrer avec la touche Entrée
+        playerNameInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                initGame();
+            }
+        });
+    </script>
+</body>
+</html>
