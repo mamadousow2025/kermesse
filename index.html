@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kermesse ASC BADEMA - Sénégal</title>
+    <title>Quiz Kermesse ASC BADEMA - Sénégal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -14,6 +14,7 @@
             --success: #4CAF50;
             --danger: #f44336;
             --warning: #FFC107;
+            --footer-bg: #004d40;
         }
         
         * {
@@ -27,10 +28,86 @@
             background: linear-gradient(135deg, var(--primary), #004d40);
             color: var(--dark);
             min-height: 100vh;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* HEADER PROFESSIONNEL */
+        .professional-header {
+            background: linear-gradient(to right, #004d40, var(--primary));
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .header-logo {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-titles {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .header-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+        
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 0.9rem;
+        }
+        
+        .header-timer {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* CONTENU PRINCIPAL */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
         }
         
         .container {
@@ -42,38 +119,69 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
         
-        header {
-            background: linear-gradient(to right, var(--primary), #00796B);
+        /* FOOTER PROFESSIONNEL */
+        .professional-footer {
+            background: var(--footer-bg);
             color: white;
-            padding: 25px;
+            padding: 20px 15px;
             text-align: center;
-            position: relative;
+            margin-top: auto;
         }
         
-        .logo {
-            width: 80px;
-            height: 80px;
-            background-color: white;
-            border-radius: 50%;
+        .footer-content {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 15px;
-            color: var(--primary);
-            font-size: 2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            flex-direction: column;
+            gap: 15px;
         }
         
-        h1 {
-            font-size: 1.8rem;
+        .footer-logo {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 600;
             margin-bottom: 5px;
         }
         
-        .subtitle {
-            font-size: 1rem;
+        .footer-subtitle {
+            font-size: 0.9rem;
             opacity: 0.9;
+            margin-bottom: 10px;
         }
         
+        .footer-contacts {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .contact-item i {
+            color: var(--secondary);
+        }
+        
+        .footer-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 10px 0;
+        }
+        
+        .footer-copyright {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* STYLES EXISTANTS */
         .screen {
             display: none;
             padding: 30px;
@@ -437,119 +545,223 @@
         .hidden {
             display: none;
         }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .professional-header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px 15px;
+            }
+            
+            .header-left, .header-right {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .header-right {
+                align-items: center;
+            }
+            
+            .header-title {
+                font-size: 1.1rem;
+            }
+            
+            .header-timer {
+                font-size: 0.9rem;
+                padding: 4px 10px;
+            }
+            
+            .screen {
+                padding: 20px 15px;
+            }
+            
+            .game-info {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .footer-contacts {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .score-details {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .score-item {
+                width: 90%;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
+    <!-- HEADER PROFESSIONNEL -->
+    <header class="professional-header">
+        <div class="header-left">
+            <div class="header-logo">
                 <i class="fas fa-users"></i>
             </div>
-            <h1>Kermesse ASC BADEMA</h1>
-            <p class="subtitle">Testez vos connaissances sur le Sénégal</p>
-        </header>
-        
-        <!-- Écran d'accueil -->
-        <div class="screen welcome-screen active" id="welcome-screen">
-            <h2>Bienvenue à la Kermesse Virtuelle</h2>
-            <p>Testez vos connaissances sur le Sénégal avec 30 questions variées : actualité, culture, sport, religion et plus encore.</p>
-            <p>Vous avez <strong>3 minutes</strong> pour répondre à chaque question. À la fin, découvrez votre score et partagez vos résultats !</p>
-            
-            <div class="form-group">
-                <label for="player-name"><i class="fas fa-user"></i> Votre nom</label>
-                <input type="text" id="player-name" placeholder="Entrez votre nom">
+            <div class="header-titles">
+                <div class="header-title">Quiz Kermesse ASC BADEMA</div>
+                <div class="header-subtitle">Testez vos connaissances sur le Sénégal</div>
             </div>
-            
-            <button class="btn btn-block" id="start-btn">
-                <i class="fas fa-play-circle"></i> Commencer le jeu
-            </button>
         </div>
-        
-        <!-- Écran de jeu -->
-        <div class="screen" id="game-screen">
-            <div class="game-info">
-                <div class="info-item">
-                    <i class="fas fa-user"></i>
-                    <span id="player-display">Joueur</span>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-question-circle"></i>
-                    <span id="question-counter">Question 1/30</span>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-clock"></i>
-                    <span class="timer" id="timer">03:00</span>
-                </div>
+        <div class="header-right">
+            <div class="header-timer">
+                <i class="fas fa-clock"></i>
+                <span id="header-timer">15s</span>
             </div>
-            
-            <div class="progress-container">
-                <div class="progress-text">
-                    <span>Progression</span>
-                    <span id="progress-percent">0%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress" id="progress"></div>
-                </div>
-            </div>
-            
-            <div class="time-up-message hidden" id="time-up-message">
-                <i class="fas fa-exclamation-triangle"></i> Temps écoulé ! Passage à la question suivante.
-            </div>
-            
-            <div class="question-container">
-                <div class="question-category" id="question-category">Culture Générale</div>
-                <div class="question-text" id="question-text">Quelle est la capitale du Sénégal ?</div>
+            <div id="header-question-info">Question: 1/30</div>
+        </div>
+    </header>
+    
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main-container">
+        <div class="container">
+            <!-- Écran d'accueil -->
+            <div class="screen welcome-screen active" id="welcome-screen">
+                <h2>Bienvenue au Quiz Kermesse</h2>
+                <p>Testez vos connaissances sur le Sénégal avec 30 questions variées : actualité, culture, sport, religion et plus encore.</p>
+                <p>Vous avez <strong>15 secondes</strong> pour répondre à chaque question. À la fin, découvrez votre score et partagez vos résultats !</p>
                 
-                <div class="options-container" id="options-container">
-                    <!-- Les options seront générées dynamiquement -->
+                <div class="form-group">
+                    <label for="player-name"><i class="fas fa-user"></i> Votre nom</label>
+                    <input type="text" id="player-name" placeholder="Entrez votre nom">
+                </div>
+                
+                <button class="btn btn-block" id="start-btn">
+                    <i class="fas fa-play-circle"></i> Commencer le quiz
+                </button>
+            </div>
+            
+            <!-- Écran de jeu -->
+            <div class="screen" id="game-screen">
+                <div class="game-info">
+                    <div class="info-item">
+                        <i class="fas fa-user"></i>
+                        <span id="player-display">Joueur</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span id="question-counter">Question 1/30</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span class="timer" id="timer">15s</span>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-text">
+                        <span>Progression</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                </div>
+                
+                <div class="time-up-message hidden" id="time-up-message">
+                    <i class="fas fa-exclamation-triangle"></i> Temps écoulé ! Passage à la question suivante.
+                </div>
+                
+                <div class="question-container">
+                    <div class="question-category" id="question-category">Culture Générale</div>
+                    <div class="question-text" id="question-text">Quelle est la capitale du Sénégal ?</div>
+                    
+                    <div class="options-container" id="options-container">
+                        <!-- Les options seront générées dynamiquement -->
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn btn-outline" id="prev-btn" disabled>
+                        <i class="fas fa-arrow-left"></i> Précédent
+                    </button>
+                    <button class="btn" id="next-btn">
+                        Suivant <i class="fas fa-arrow-right"></i>
+                    </button>
                 </div>
             </div>
             
-            <div class="navigation">
-                <button class="btn btn-outline" id="prev-btn" disabled>
-                    <i class="fas fa-arrow-left"></i> Précédent
-                </button>
-                <button class="btn" id="next-btn">
-                    Suivant <i class="fas fa-arrow-right"></i>
-                </button>
+            <!-- Écran des résultats -->
+            <div class="screen results-screen" id="results-screen">
+                <div class="results-icon" id="results-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                
+                <h2 class="results-title">Résultats du Quiz</h2>
+                
+                <div class="score" id="final-score">0/30</div>
+                
+                <div class="score-details">
+                    <div class="score-item correct-answers">
+                        <div class="score-label">Bonnes réponses</div>
+                        <div class="score-value" id="correct-count">0</div>
+                    </div>
+                    <div class="score-item incorrect-answers">
+                        <div class="score-label">Mauvaises réponses</div>
+                        <div class="score-value" id="incorrect-count">0</div>
+                    </div>
+                </div>
+                
+                <div class="message" id="result-message">
+                    <!-- Le message sera généré dynamiquement -->
+                </div>
+                
+                <div class="actions">
+                    <button class="btn btn-outline" id="restart-btn">
+                        <i class="fas fa-redo"></i> Nouveau quiz
+                    </button>
+                    <button class="btn" id="share-btn">
+                        <i class="fas fa-share-alt"></i> Partager
+                    </button>
+                </div>
             </div>
         </div>
-        
-        <!-- Écran des résultats -->
-        <div class="screen results-screen" id="results-screen">
-            <div class="results-icon" id="results-icon">
-                <i class="fas fa-trophy"></i>
+    </main>
+    
+    <!-- FOOTER PROFESSIONNEL -->
+    <footer class="professional-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-flag"></i>
             </div>
             
-            <h2 class="results-title">Résultats</h2>
+            <div>
+                <div class="footer-title">ASC BADEMA Kermesse</div>
+                <div class="footer-subtitle">Quiz culturel sur le Sénégal</div>
+            </div>
             
-            <div class="score" id="final-score">0/30</div>
-            
-            <div class="score-details">
-                <div class="score-item correct-answers">
-                    <div class="score-label">Bonnes réponses</div>
-                    <div class="score-value" id="correct-count">0</div>
+            <div class="footer-contacts">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Dakar, Sénégal</span>
                 </div>
-                <div class="score-item incorrect-answers">
-                    <div class="score-label">Mauvaises réponses</div>
-                    <div class="score-value" id="incorrect-count">0</div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+221 XX XXX XX XX</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact@asc-badema.sn</span>
                 </div>
             </div>
             
-            <div class="message" id="result-message">
-                <!-- Le message sera généré dynamiquement -->
-            </div>
+            <div class="footer-divider"></div>
             
-            <div class="actions">
-                <button class="btn btn-outline" id="restart-btn">
-                    <i class="fas fa-redo"></i> Recommencer
-                </button>
-                <button class="btn" id="share-btn">
-                    <i class="fas fa-share-alt"></i> Partager
-                </button>
+            <div class="footer-copyright">
+                © 2023 ASC BADEMA - Tous droits réservés. | Quiz développé pour la kermesse annuelle.
             </div>
         </div>
-    </div>
+    </footer>
 
     <script>
         // Questions du jeu (30 questions sur divers thèmes sénégalais)
@@ -742,7 +954,7 @@
         let playerName = "";
         let userAnswers = Array(questions.length).fill(null);
         let timer;
-        let timeLeft = 180; // 3 minutes en secondes
+        let timeLeft = 15; // 15 secondes pour répondre à chaque question
 
         // Éléments DOM
         const welcomeScreen = document.getElementById('welcome-screen');
@@ -768,6 +980,8 @@
         const resultsIcon = document.getElementById('results-icon');
         const restartBtn = document.getElementById('restart-btn');
         const shareBtn = document.getElementById('share-btn');
+        const headerTimer = document.getElementById('header-timer');
+        const headerQuestionInfo = document.getElementById('header-question-info');
 
         // Initialisation du jeu
         function initGame() {
@@ -781,12 +995,22 @@
             loadQuestion();
             startTimer();
             updateProgress();
+            updateHeader();
         }
 
         // Afficher un écran spécifique
         function showScreen(screen) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             screen.classList.add('active');
+            
+            // Masquer l'info du header sur l'écran d'accueil et des résultats
+            if (screen === welcomeScreen || screen === resultsScreen) {
+                headerTimer.parentElement.style.display = 'none';
+                headerQuestionInfo.style.display = 'none';
+            } else {
+                headerTimer.parentElement.style.display = 'flex';
+                headerQuestionInfo.style.display = 'block';
+            }
         }
 
         // Charger la question actuelle
@@ -797,6 +1021,9 @@
             questionCategory.textContent = question.category;
             questionText.textContent = question.question;
             questionCounter.textContent = `Question ${currentQuestion + 1}/${questions.length}`;
+            
+            // Mettre à jour le header
+            updateHeader();
             
             // Générer les options
             optionsContainer.innerHTML = '';
@@ -829,6 +1056,12 @@
             resetTimer();
         }
 
+        // Mettre à jour le header
+        function updateHeader() {
+            headerTimer.textContent = `${timeLeft}s`;
+            headerQuestionInfo.textContent = `Question: ${currentQuestion + 1}/${questions.length}`;
+        }
+
         // Sélectionner une option
         function selectOption(optionIndex) {
             // Désélectionner toutes les options
@@ -845,10 +1078,9 @@
 
         // Passer à la question suivante
         function nextQuestion() {
-            // Vérifier si une réponse a été donnée
+            // Si aucune réponse n'a été donnée, enregistrer comme non répondue
             if (userAnswers[currentQuestion] === null) {
-                alert('Veuillez sélectionner une réponse avant de continuer.');
-                return;
+                userAnswers[currentQuestion] = -1; // -1 signifie "non répondue"
             }
             
             if (currentQuestion < questions.length - 1) {
@@ -919,14 +1151,14 @@
             progressPercent.textContent = `${Math.round(progress)}%`;
         }
 
-        // Gérer le timer
+        // Gérer le timer (15 secondes par question)
         function startTimer() {
             resetTimer();
             timer = setInterval(updateTimer, 1000);
         }
 
         function resetTimer() {
-            timeLeft = 180; // 3 minutes
+            timeLeft = 15; // 15 secondes par question
             updateTimerDisplay();
             timeUpMessage.classList.add('hidden');
         }
@@ -944,7 +1176,7 @@
                     userAnswers[currentQuestion] = -1; // -1 signifie "temps écoulé"
                 }
                 
-                // Passer automatiquement à la question suivante après 3 secondes
+                // Passer automatiquement à la question suivante après 1.5 secondes
                 setTimeout(() => {
                     if (currentQuestion < questions.length - 1) {
                         currentQuestion++;
@@ -953,20 +1185,24 @@
                     } else {
                         finishGame();
                     }
-                }, 3000);
+                }, 1500);
             }
         }
 
         function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            timerDisplay.textContent = `${timeLeft}s`;
+            headerTimer.textContent = `${timeLeft}s`;
             
             // Changer la couleur quand le temps est presque écoulé
-            if (timeLeft <= 30) {
+            if (timeLeft <= 5) {
                 timerDisplay.style.color = 'var(--danger)';
+                headerTimer.style.color = 'var(--danger)';
+            } else if (timeLeft <= 10) {
+                timerDisplay.style.color = 'var(--warning)';
+                headerTimer.style.color = 'var(--warning)';
             } else {
                 timerDisplay.style.color = 'var(--dark)';
+                headerTimer.style.color = 'white';
             }
         }
 
@@ -974,6 +1210,7 @@
         function restartGame() {
             showScreen(welcomeScreen);
             playerNameInput.value = playerName;
+            playerNameInput.focus();
         }
 
         // Partager les résultats
@@ -982,7 +1219,7 @@
             
             if (navigator.share) {
                 navigator.share({
-                    title: 'Résultats Kermesse ASC BADEMA',
+                    title: 'Résultats Quiz Kermesse ASC BADEMA',
                     text: shareText,
                     url: window.location.href
                 })
@@ -1010,6 +1247,11 @@
             if (e.key === 'Enter') {
                 initGame();
             }
+        });
+        
+        // Focus sur le champ de nom au chargement
+        window.addEventListener('load', () => {
+            playerNameInput.focus();
         });
     </script>
 </body>
