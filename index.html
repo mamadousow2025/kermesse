@@ -546,6 +546,100 @@
             display: none;
         }
         
+        /* NOUVEAUX STYLES POUR L'ACCÈS CODE */
+        .access-code-screen {
+            text-align: center;
+        }
+        
+        .access-code-screen h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .access-code-screen p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        
+        .code-info {
+            background-color: rgba(255, 152, 0, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .code-info i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+        
+        .code-input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .code-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .code-error {
+            color: var(--danger);
+            margin-top: 10px;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .code-success {
+            color: var(--success);
+            margin-top: 10px;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .admin-info {
+            background-color: rgba(0, 150, 136, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .admin-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .codes-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .code-item {
+            background-color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-family: monospace;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .professional-header {
@@ -597,6 +691,14 @@
             
             .score-item {
                 width: 90%;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .codes-list {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
@@ -717,12 +819,63 @@
                 </div>
                 
                 <div class="actions">
-                    <button class="btn btn-outline" id="restart-btn">
-                        <i class="fas fa-redo"></i> Nouveau quiz
-                    </button>
-                    <button class="btn" id="share-btn">
+                    <button class="btn btn-outline" id="share-btn">
                         <i class="fas fa-share-alt"></i> Partager
                     </button>
+                    <button class="btn" id="play-again-btn">
+                        <i class="fas fa-redo"></i> Rejouer
+                    </button>
+                </div>
+            </div>
+            
+            <!-- NOUVEL ÉCRAN : CODE D'ACCÈS POUR REJOUER -->
+            <div class="screen access-code-screen" id="access-code-screen">
+                <div class="results-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                
+                <h2>Accès Réservé</h2>
+                
+                <p>Pour rejouer au quiz, vous devez entrer un code d'accès valide. Seul l'administrateur peut fournir ce code.</p>
+                
+                <div class="code-info">
+                    <p><i class="fas fa-info-circle"></i> <strong>Information :</strong> Après avoir terminé un quiz, vous devez saisir un code d'accès pour pouvoir rejouer. Contactez l'administrateur du jeu pour obtenir un code valide.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="access-code"><i class="fas fa-key"></i> Code d'accès</label>
+                    <div class="code-input-group">
+                        <input type="password" id="access-code" placeholder="Entrez le code d'accès">
+                        <button class="code-toggle" id="toggle-code-visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="code-error" id="code-error">
+                        <i class="fas fa-times-circle"></i> Code incorrect. Veuillez réessayer.
+                    </div>
+                    <div class="code-success" id="code-success">
+                        <i class="fas fa-check-circle"></i> Code correct ! Redirection...
+                    </div>
+                </div>
+                
+                <button class="btn btn-block" id="submit-code-btn">
+                    <i class="fas fa-unlock"></i> Vérifier le code
+                </button>
+                
+                <button class="btn btn-outline btn-block" id="back-to-welcome-btn">
+                    <i class="fas fa-arrow-left"></i> Retour à l'accueil
+                </button>
+                
+                <!-- SECTION ADMIN - CACHÉE PAR DÉFAUT -->
+                <div class="admin-info hidden" id="admin-info">
+                    <h3><i class="fas fa-user-shield"></i> Informations Administrateur</h3>
+                    <p>Codes d'accès valides (visibles uniquement pour l'admin) :</p>
+                    <div class="codes-list" id="codes-list">
+                        <!-- Les codes seront affichés ici -->
+                    </div>
+                    <p class="footer-copyright" style="margin-top: 10px;">
+                        <i class="fas fa-lightbulb"></i> Ces codes ne sont pas visibles par les joueurs.
+                    </p>
                 </div>
             </div>
         </div>
@@ -948,6 +1101,16 @@
             }
         ];
 
+        // Codes d'accès valides (seulement pour l'administrateur)
+        const validAccessCodes = [
+            "samsam2090",
+            "samsam@123",
+            "EMS",
+            "sams@m",
+            "samsam1978",
+            "saamsaam23"
+        ];
+
         // Variables globales
         let currentQuestion = 0;
         let score = 0;
@@ -955,11 +1118,13 @@
         let userAnswers = Array(questions.length).fill(null);
         let timer;
         let timeLeft = 15; // 15 secondes pour répondre à chaque question
+        let hasPlayedOnce = false; // Pour savoir si l'utilisateur a déjà joué une fois
 
         // Éléments DOM
         const welcomeScreen = document.getElementById('welcome-screen');
         const gameScreen = document.getElementById('game-screen');
         const resultsScreen = document.getElementById('results-screen');
+        const accessCodeScreen = document.getElementById('access-code-screen');
         const playerNameInput = document.getElementById('player-name');
         const startBtn = document.getElementById('start-btn');
         const playerDisplay = document.getElementById('player-display');
@@ -978,10 +1143,36 @@
         const incorrectCount = document.getElementById('incorrect-count');
         const resultMessage = document.getElementById('result-message');
         const resultsIcon = document.getElementById('results-icon');
-        const restartBtn = document.getElementById('restart-btn');
+        const playAgainBtn = document.getElementById('play-again-btn');
         const shareBtn = document.getElementById('share-btn');
         const headerTimer = document.getElementById('header-timer');
         const headerQuestionInfo = document.getElementById('header-question-info');
+        const accessCodeInput = document.getElementById('access-code');
+        const toggleCodeVisibility = document.getElementById('toggle-code-visibility');
+        const submitCodeBtn = document.getElementById('submit-code-btn');
+        const backToWelcomeBtn = document.getElementById('back-to-welcome-btn');
+        const codeError = document.getElementById('code-error');
+        const codeSuccess = document.getElementById('code-success');
+        const adminInfo = document.getElementById('admin-info');
+        const codesList = document.getElementById('codes-list');
+
+        // Afficher les codes pour l'administrateur (caché par défaut)
+        function displayAdminCodes() {
+            codesList.innerHTML = '';
+            validAccessCodes.forEach(code => {
+                const codeElement = document.createElement('div');
+                codeElement.className = 'code-item';
+                codeElement.textContent = code;
+                codesList.appendChild(codeElement);
+            });
+            
+            // Option pour montrer/cacher la section admin avec un code secret
+            const adminCode = "admin123"; // Code pour afficher les infos admin
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('admin') === adminCode) {
+                adminInfo.classList.remove('hidden');
+            }
+        }
 
         // Initialisation du jeu
         function initGame() {
@@ -996,6 +1187,7 @@
             startTimer();
             updateProgress();
             updateHeader();
+            hasPlayedOnce = true;
         }
 
         // Afficher un écran spécifique
@@ -1003,8 +1195,8 @@
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             screen.classList.add('active');
             
-            // Masquer l'info du header sur l'écran d'accueil et des résultats
-            if (screen === welcomeScreen || screen === resultsScreen) {
+            // Masquer l'info du header sur certains écrans
+            if (screen === welcomeScreen || screen === resultsScreen || screen === accessCodeScreen) {
                 headerTimer.parentElement.style.display = 'none';
                 headerQuestionInfo.style.display = 'none';
             } else {
@@ -1206,11 +1398,31 @@
             }
         }
 
-        // Recommencer le jeu
-        function restartGame() {
-            showScreen(welcomeScreen);
-            playerNameInput.value = playerName;
-            playerNameInput.focus();
+        // Vérifier le code d'accès pour rejouer
+        function verifyAccessCode() {
+            const enteredCode = accessCodeInput.value.trim();
+            
+            // Cacher les messages précédents
+            codeError.style.display = 'none';
+            codeSuccess.style.display = 'none';
+            
+            if (validAccessCodes.includes(enteredCode)) {
+                // Code correct
+                codeSuccess.style.display = 'block';
+                
+                // Réinitialiser le champ de code
+                accessCodeInput.value = '';
+                
+                // Rediriger vers l'écran d'accueil après un court délai
+                setTimeout(() => {
+                    showScreen(welcomeScreen);
+                    playerNameInput.focus();
+                }, 1500);
+            } else {
+                // Code incorrect
+                codeError.style.display = 'block';
+                accessCodeInput.focus();
+            }
         }
 
         // Partager les résultats
@@ -1235,12 +1447,42 @@
             }
         }
 
+        // Basculer la visibilité du code
+        function toggleVisibility() {
+            if (accessCodeInput.type === 'password') {
+                accessCodeInput.type = 'text';
+                toggleCodeVisibility.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                accessCodeInput.type = 'password';
+                toggleCodeVisibility.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        }
+
+        // Retour à l'écran d'accueil
+        function goBackToWelcome() {
+            showScreen(welcomeScreen);
+            playerNameInput.focus();
+        }
+
         // Événements
         startBtn.addEventListener('click', initGame);
         nextBtn.addEventListener('click', nextQuestion);
         prevBtn.addEventListener('click', prevQuestion);
-        restartBtn.addEventListener('click', restartGame);
+        playAgainBtn.addEventListener('click', () => {
+            // Si l'utilisateur a déjà joué une fois, rediriger vers l'écran de code d'accès
+            if (hasPlayedOnce) {
+                showScreen(accessCodeScreen);
+                accessCodeInput.focus();
+            } else {
+                // Sinon, retourner directement à l'écran d'accueil
+                showScreen(welcomeScreen);
+                playerNameInput.focus();
+            }
+        });
         shareBtn.addEventListener('click', shareResults);
+        submitCodeBtn.addEventListener('click', verifyAccessCode);
+        backToWelcomeBtn.addEventListener('click', goBackToWelcome);
+        toggleCodeVisibility.addEventListener('click', toggleVisibility);
 
         // Permettre de démarrer avec la touche Entrée
         playerNameInput.addEventListener('keyup', (e) => {
@@ -1249,9 +1491,17 @@
             }
         });
         
+        // Permettre de soumettre le code avec la touche Entrée
+        accessCodeInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                verifyAccessCode();
+            }
+        });
+        
         // Focus sur le champ de nom au chargement
         window.addEventListener('load', () => {
             playerNameInput.focus();
+            displayAdminCodes();
         });
     </script>
 </body>
